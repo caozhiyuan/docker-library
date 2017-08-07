@@ -6,6 +6,15 @@ apt update
 
 apt install docker.io
 
+tee /etc/docker/daemon.json <<-'EOF'
+{
+    "insecure-registries": ["10.1.62.5:5000"],
+    "registry-mirrors": ["https://u5528225.mirror.aliyuncs.com"]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
 images=(
     kube-controller-manager-amd64:v1.6.0
     kube-apiserver-amd64:v1.6.0
@@ -50,7 +59,23 @@ mkdir cni
 
 tar xvfz cni.tar.gz -C cni
 
-cp /cni/bin/* /opt/cni/bin/
+mkdir -p /opt/cni/bin
+
+cp cni/bin/* /opt/cni/bin/
+
+wget http://192.168.100.6:9999/v1.6.1/conf.tar
+
+tar xvf conf.tar
+
+mkdir /etc/systemd/system/kubelet.service.d
+
+cp conf/10-kubeadm.conf /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+
+cp conf/kubelet.service /lib/systemd/system/kubelet.service 
+
+systemctl daemon-reload
+
+systemctl enable kubelet.service
 
 kubeadm init
 
