@@ -7,9 +7,9 @@ apt update
 apt install docker.io
 
 images=(
-    kube-controller-manager-amd64:v1.6.1
-    kube-apiserver-amd64:v1.6.1
-    kube-scheduler-amd64:v1.6.1
+    kube-controller-manager-amd64:v1.6.0
+    kube-apiserver-amd64:v1.6.0
+    kube-scheduler-amd64:v1.6.0
     kube-proxy-amd64:v1.6.0
     kubernetes-dashboard-amd64:v1.6.0
     k8s-dns-sidecar-amd64:1.14.1
@@ -30,17 +30,17 @@ wget http://192.168.100.6:9999/v1.6.1/kubernetes-server-linux-amd64.tar.gz
 
 tar xvfz kubernetes-server-linux-amd64.tar.gz
 
-cd kubernetes-server-linux-amd64/kubernetes/server/bin/
+cd kubernetes/server/bin/
 
-cp kubernetes-server-linux-amd64/kubernetes/server/bin/kubectl /usr/bin/kubectl
+cp kubectl /usr/bin/kubectl
 
 chmod -R 777 /usr/bin/kubectl
 
-cp kubernetes-server-linux-amd64/kubernetes/server/bin/kubelet /usr/bin/kubelet
+cp kubelet /usr/bin/kubelet
 
 chmod -R 777 /usr/bin/kubelet
 
-cp kubernetes-server-linux-amd64/kubernetes/server/bin/kubeadm /usr/bin/kubeadm
+cp kubeadm /usr/bin/kubeadm
 
 chmod -R 777 /usr/bin/kubeadm
 
