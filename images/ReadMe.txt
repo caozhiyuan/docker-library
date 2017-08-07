@@ -44,7 +44,16 @@ cp kubernetes-server-linux-amd64/kubernetes/server/bin/kubeadm /usr/bin/kubeadm
 
 chmod -R 777 /usr/bin/kubeadm
 
+wget http://192.168.100.6:9999/v1.6.1/cni.tar.gz
+
+mkdir cni
+
+tar xvfz cni.tar.gz -C cni
+
+cp /cni/bin/* /opt/cni/bin/
+
 kubeadm init
+
 
 
 
