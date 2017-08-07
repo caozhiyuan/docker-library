@@ -6,15 +6,6 @@ apt update
 
 apt install docker.io
 
-tee /etc/docker/daemon.json <<-'EOF'
-{
-    "insecure-registries": ["10.1.62.5:5000"],
-    "registry-mirrors": ["https://u5528225.mirror.aliyuncs.com"]
-}
-EOF
-sudo systemctl daemon-reload
-sudo systemctl restart docker
-
 images=(
     kube-controller-manager-amd64:v1.6.0
     kube-apiserver-amd64:v1.6.0
@@ -33,7 +24,6 @@ for imageName in ${images[@]} ; do
     docker tag caozhiyuan/$imageName gcr.io/google_containers/$imageName
     docker rmi caozhiyuan/$imageName
 done
-
 
 wget http://192.168.100.6:9999/v1.6.1/kubernetes-server-linux-amd64.tar.gz
 
@@ -79,8 +69,26 @@ systemctl enable kubelet.service
 
 kubeadm init
 
-kubectl create -f http://192.168.100.6:9999/v1.6.1/weave-daemonset-k8s-1.6.yaml
+kubectl create -f https://github.com/weaveworks/weave/releases/download/v2.0.1/weave-daemonset-k8s-1.6.yaml
 
 
+tee /etc/docker/daemon.json <<-'EOF'
+{
+    "insecure-registries": ["10.1.62.5:5000"],
+    "registry-mirrors": ["https://u5528225.mirror.aliyuncs.com"]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 
+for imageName in ${images[@]} ; do
+    docker pull 10.1.62.5:5000/$imageName
+    docker tag 10.1.62.5:5000/$imageName gcr.io/google_containers/$imageName
+    docker rmi 10.1.62.5:5000/$imageName
+done
 
+for imageName in ${images[@]} ; do
+    docker tag gcr.io/google_containers/$imageName 10.1.62.5:5000/$imageName 
+    docker push 10.1.62.5:5000/$imageName
+    docker rmi 10.1.62.5:5000/$imageName
+done
