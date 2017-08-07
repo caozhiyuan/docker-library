@@ -92,3 +92,9 @@ for imageName in ${images[@]} ; do
     docker push 10.1.62.5:5000/$imageName
     docker rmi 10.1.62.5:5000/$imageName
 done
+
+
+/etc/resolvconf/resolv.conf.d/tail
+nameserver 192.168.139.2
+
+/etc/init.d/resolvconf restart 
