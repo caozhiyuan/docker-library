@@ -54,6 +54,7 @@ cp /cni/bin/* /opt/cni/bin/
 
 kubeadm init
 
+kubectl create -f http://192.168.100.6:9999/v1.6.1/weave-daemonset-k8s-1.6.yaml
 
 
 
