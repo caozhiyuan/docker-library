@@ -103,6 +103,7 @@ nameserver 192.168.139.2
 images=(
     nginx-ingress-controller:0.9.0-beta.11
     defaultbackend:1.0
+	echoserver:1.8
 )
 
 for imageName in ${images[@]} ; do
