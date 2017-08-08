@@ -98,3 +98,15 @@ done
 nameserver 192.168.139.2
 
 /etc/init.d/resolvconf restart 
+
+
+images=(
+    nginx-ingress-controller:0.9.0-beta.11
+    defaultbackend:1.0
+)
+
+for imageName in ${images[@]} ; do
+    docker pull caozhiyuan/$imageName
+    docker tag caozhiyuan/$imageName gcr.io/google_containers/$imageName
+    docker rmi caozhiyuan/$imageName
+done
