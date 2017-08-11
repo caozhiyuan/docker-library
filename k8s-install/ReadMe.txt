@@ -111,3 +111,8 @@ for imageName in ${images[@]} ; do
     docker tag caozhiyuan/$imageName gcr.io/google_containers/$imageName
     docker rmi caozhiyuan/$imageName
 done
+
+
+images=(
+   hyperkube-amd64:v1.7.3
+)
