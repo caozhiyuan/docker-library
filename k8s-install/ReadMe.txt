@@ -116,3 +116,10 @@ done
 images=(
    hyperkube-amd64:v1.7.3
 )
+
+
+images=(
+    k8s-dns-sidecar-amd64:1.13.0
+    k8s-dns-kube-dns-amd64:1.13.0
+    k8s-dns-dnsmasq-amd64:1.13.0
+)
