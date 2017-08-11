@@ -1,1 +1,1 @@
-FROM gcr.io/google_containers/k8s-dns-dnsmasq:1.14.1
+gcr.io/google_containers/k8s-dns-dnsmasq-amd64:1.13.0
