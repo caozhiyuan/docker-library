@@ -19,3 +19,4 @@ spec:
     hostPath:
        path: /usr/share/zoneinfo/Asia/Shanghai
   restartPolicy: Always
+
